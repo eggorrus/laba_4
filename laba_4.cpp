@@ -104,7 +104,7 @@ int main(int argc, char* argv[]) {
 	int** A = declaration_of_matrix(N, M);
 	output_to_input(interface);
 	A = input_matrix(A, N, M);
-	int command;
+	int command, K, x;
 	input_command(interface);
 	cin >> command;
 	while (command != 0) {
@@ -112,7 +112,6 @@ int main(int argc, char* argv[]) {
 			matrix_to_disp(A, N, M);
 		}
 		else if (command == 2) {
-			int K;
 			input_command_2_1(interface);
 			cin >> K;
 			int** A2 = declaration_of_matrix(M, K);
@@ -125,7 +124,6 @@ int main(int argc, char* argv[]) {
 		else if (command == 3) {
 			if (square_matrix(N, M)) {
 				output_to_input_power(interface);
-				int x;
 				cin >> x;
 				int** a0 = declaration_of_matrix(N, M);
 				equal_matrix(a0, A, N, M);
