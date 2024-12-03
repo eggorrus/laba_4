@@ -58,21 +58,54 @@ void multiple_matrix(int** a, int** b, int rows, int cols) {
 	delete_matrix(result, rows);
 }
 
+bool square_matrix(int rows, int cols) {
+	if (rows == cols) return true;
+	else return false;
+}
+
+void output_size(bool interface) {
+	if (interface)
+		cout << "Введите размерность матрицы" << endl;
+}
+
+void output_to_input(bool interface) {
+	if (interface) cout << "Введите матрицу по строкам" << endl;
+}
+
+void output_negative(bool interface) {
+	if (interface) cout << "Матрица не удовлетворяет заданным условиям." << endl;
+	else cout << "NO" << endl;
+}
+
+void input_command(bool interface) {
+	if (interface) cout << "Введите команду (0 - окончание работы программы, 1 - вывод матрицы А, 2 - произведение матриц, 3 - вовзедение А в степень" << endl;
+}
+
+void input_command_2_1(bool interface) {
+	if (interface) cout << "Введите значение К (количество столбцов в вводимой матрице)" << endl;
+}
+
+void input_command_2_2(bool interface) {
+	if (interface) cout << "Введите новую матрицу" << endl;
+}
+
+void output_to_input_power(bool interface) {
+	if (interface) cout << "Введите степень" << endl;
+}
+
 int main(int argc, char* argv[]) {
 	setlocale(LC_CTYPE, "rus");
 	bool interface = false;
 	if (argc <= 1 || strcmp(argv[1], "false") != 0)
 		interface = true;
 	int N, M;
-	if (interface)
-		cout << "Введите размерность матрицы" << endl;
+	output_size(interface);
 	cin >> N >> M;
 	int** A = declaration_of_matrix(N, M);
-	if (interface) cout << "Введите матрицу по строкам" << endl;
-	int num;
+	output_to_input(interface);
 	A = input_matrix(A, N, M);
 	int command;
-	if (interface) cout << "Введите команду (0 - окончание работы программы, 1 - вывод матрицы А, 2 - произведение матриц, 3 - вовзедение А в степень" << endl;
+	input_command(interface);
 	cin >> command;
 	while (command != 0) {
 		if (command == 1) {
@@ -80,23 +113,18 @@ int main(int argc, char* argv[]) {
 		}
 		else if (command == 2) {
 			int K;
-			if (interface) cout << "Введите значение К (количество столбцов в вводимой матрице)" << endl;
+			input_command_2_1(interface);
 			cin >> K;
 			int** A2 = declaration_of_matrix(M, K);
-			if (interface) cout << "Введите новую матрицу" << endl;
+			input_command_2_2(interface);
 			A2 = input_matrix(A2, M, K);
 			multiple_matrix(A, A2, N, K);
 			delete_matrix(A2, M);
 			M = K;
 		}
 		else if (command == 3) {
-			if (N != M) {
-				if (interface) cout << "Матрица не квадратная!" << endl;
-				else cout << "NO" << endl;
-				goto point;
-			}
-			else {
-				if (interface) cout << "Введите степень" << endl;
+			if (square_matrix(N, M)) {
+				output_to_input_power(interface);
 				int x;
 				cin >> x;
 				int** a0 = declaration_of_matrix(N, M);
@@ -106,11 +134,14 @@ int main(int argc, char* argv[]) {
 				}
 				delete_matrix(a0, N);
 			}
+			else {
+				output_negative(interface);
+				goto point;
+			}
 		}
 		point:;
-		if (interface) cout << "Введите команду (0 - окончание работы программы, 1 - вывод матрицы А, 2 - произведение матриц, 3 - вовзедение А в степень" << endl;
+		input_command(interface);
 		cin >> command;
 	}
-
 	delete_matrix(A, N);
 }
