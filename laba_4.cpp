@@ -135,6 +135,7 @@ int main(int argc, char* argv[]) {
 			}
 			else {
 				if (interface) user_output(3.2);
+				else cout<<"NO"<<endl;
 				goto point;
 			}
 		}
